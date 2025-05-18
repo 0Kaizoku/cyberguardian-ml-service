@@ -1,0 +1,1352 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "383d7a37-8629-42d4-ba70-349429711a31",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Requirement already satisfied: pandas in c:\\users\\amine\\anaconda3\\lib\\site-packages (2.2.2)\n",
+      "Requirement already satisfied: matplotlib in c:\\users\\amine\\anaconda3\\lib\\site-packages (3.9.2)\n",
+      "Requirement already satisfied: seaborn in c:\\users\\amine\\anaconda3\\lib\\site-packages (0.13.2)\n",
+      "Requirement already satisfied: numpy>=1.26.0 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from pandas) (1.26.4)\n",
+      "Requirement already satisfied: python-dateutil>=2.8.2 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from pandas) (2.9.0.post0)\n",
+      "Requirement already satisfied: pytz>=2020.1 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from pandas) (2024.1)\n",
+      "Requirement already satisfied: tzdata>=2022.7 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from pandas) (2023.3)\n",
+      "Requirement already satisfied: contourpy>=1.0.1 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from matplotlib) (1.2.0)\n",
+      "Requirement already satisfied: cycler>=0.10 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from matplotlib) (0.11.0)\n",
+      "Requirement already satisfied: fonttools>=4.22.0 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from matplotlib) (4.51.0)\n",
+      "Requirement already satisfied: kiwisolver>=1.3.1 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from matplotlib) (1.4.4)\n",
+      "Requirement already satisfied: packaging>=20.0 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from matplotlib) (24.1)\n",
+      "Requirement already satisfied: pillow>=8 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from matplotlib) (10.4.0)\n",
+      "Requirement already satisfied: pyparsing>=2.3.1 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from matplotlib) (3.1.2)\n",
+      "Requirement already satisfied: six>=1.5 in c:\\users\\amine\\anaconda3\\lib\\site-packages (from python-dateutil>=2.8.2->pandas) (1.16.0)\n",
+      "Note: you may need to restart the kernel to use updated packages.\n"
+     ]
+    }
+   ],
+   "source": [
+    "pip install pandas matplotlib seaborn"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "id": "c611bbf4-77a4-41b3-8fec-d20f936d0d4d",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import matplotlib.pyplot as plt\n",
+    "import seaborn as sns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "id": "9fd0acd3-daca-429c-8c49-3942efe5fe4e",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "df = pd.read_csv(\"C:/Users/amine/OneDrive/Desktop/pfa/Android_Permission.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "id": "256a362b-832f-4b22-9997-04c558377a8c",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "                              App                                   Package  \\\n",
+      "0         Canada Post Corporation                    com.canadapost.android   \n",
+      "1                       Word Farm                 com.realcasualgames.words   \n",
+      "2            Fortunes of War FREE                        fortunesofwar.free   \n",
+      "3  Better Keyboard: Avatar Purple  com.cc.betterkeyboard.skins.avatarpurple   \n",
+      "4                      Boxing Day                indiaNIC.android.BoxingDay   \n",
+      "\n",
+      "           Category                                        Description  \\\n",
+      "0          Business  Canada Post Mobile App gives you access to som...   \n",
+      "1    Brain & Puzzle  Speed and strategy combine in this exciting wo...   \n",
+      "2    Cards & Casino  Fortunes of War is a fast-paced, easy to learn...   \n",
+      "3  Libraries & Demo  Skin for Better Keyboard featuring a glossy fe...   \n",
+      "4         Lifestyle  Boxing Day by Christopher Jaymes<p>Based on a ...   \n",
+      "\n",
+      "   Rating  Number of ratings  Price  \\\n",
+      "0     3.1                 77   0.00   \n",
+      "1     4.3                199   0.00   \n",
+      "2     4.1                243   0.00   \n",
+      "3     3.6               2589   0.00   \n",
+      "4     0.0                  0   5.99   \n",
+      "\n",
+      "                                        Related apps  \\\n",
+      "0  {com.adaffix.pub.ca.android, com.kevinquan.gas...   \n",
+      "1  {air.com.zubawing.FastWordLite, com.joybits.do...   \n",
+      "2  {com.kevinquan.condado, hu.monsta.pazaak, net....   \n",
+      "3  {eu.gdumoulin.betterandroid.skins.transparent....   \n",
+      "4                                                NaN   \n",
+      "\n",
+      "   Dangerous permissions count  Safe permissions count  ...  \\\n",
+      "0                          7.0                       1  ...   \n",
+      "1                          3.0                       2  ...   \n",
+      "2                          1.0                       1  ...   \n",
+      "3                          0.0                       0  ...   \n",
+      "4                          1.0                       0  ...   \n",
+      "\n",
+      "   Your personal information : read calendar events (D)  \\\n",
+      "0                                                  0      \n",
+      "1                                                  0      \n",
+      "2                                                  0      \n",
+      "3                                                  0      \n",
+      "4                                                  0      \n",
+      "\n",
+      "   Your personal information : read contact data (D)  \\\n",
+      "0                                                  1   \n",
+      "1                                                  0   \n",
+      "2                                                  0   \n",
+      "3                                                  0   \n",
+      "4                                                  0   \n",
+      "\n",
+      "   Your personal information : read sensitive log data (D)  \\\n",
+      "0                                                  0         \n",
+      "1                                                  0         \n",
+      "2                                                  0         \n",
+      "3                                                  0         \n",
+      "4                                                  0         \n",
+      "\n",
+      "   Your personal information : read user defined dictionary (D)  \\\n",
+      "0                                                  0              \n",
+      "1                                                  0              \n",
+      "2                                                  0              \n",
+      "3                                                  0              \n",
+      "4                                                  0              \n",
+      "\n",
+      "   Your personal information : retrieve system internal state (S)  \\\n",
+      "0                                                  0                \n",
+      "1                                                  0                \n",
+      "2                                                  0                \n",
+      "3                                                  0                \n",
+      "4                                                  0                \n",
+      "\n",
+      "   Your personal information : set alarm in alarm clock (S)  \\\n",
+      "0                                                  0          \n",
+      "1                                                  0          \n",
+      "2                                                  0          \n",
+      "3                                                  0          \n",
+      "4                                                  0          \n",
+      "\n",
+      "   Your personal information : write Browser's history and bookmarks (D)  \\\n",
+      "0                                                  0                       \n",
+      "1                                                  0                       \n",
+      "2                                                  0                       \n",
+      "3                                                  0                       \n",
+      "4                                                  0                       \n",
+      "\n",
+      "   Your personal information : write contact data (D)  \\\n",
+      "0                                                  1    \n",
+      "1                                                  0    \n",
+      "2                                                  0    \n",
+      "3                                                  0    \n",
+      "4                                                  0    \n",
+      "\n",
+      "   Your personal information : write to user defined dictionary (S)  Class  \n",
+      "0                                                  0                     0  \n",
+      "1                                                  0                     0  \n",
+      "2                                                  0                     0  \n",
+      "3                                                  0                     0  \n",
+      "4                                                  0                     1  \n",
+      "\n",
+      "[5 rows x 184 columns]\n",
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 29999 entries, 0 to 29998\n",
+      "Columns: 184 entries, App to Class\n",
+      "dtypes: float64(3), int64(176), object(5)\n",
+      "memory usage: 42.1+ MB\n",
+      "None\n",
+      "             Rating  Number of ratings         Price  \\\n",
+      "count  29999.000000       2.999900e+04  29999.000000   \n",
+      "mean       3.537215       6.852608e+03      0.625707   \n",
+      "std        1.424685       4.586899e+04      3.222620   \n",
+      "min        0.000000       0.000000e+00      0.000000   \n",
+      "25%        3.300000       4.000000e+00      0.000000   \n",
+      "50%        4.000000       4.600000e+01      0.000000   \n",
+      "75%        4.400000       7.160000e+02      0.000000   \n",
+      "max        5.000000       1.908590e+06    158.070000   \n",
+      "\n",
+      "       Dangerous permissions count  Safe permissions count  \\\n",
+      "count                 29795.000000            29999.000000   \n",
+      "mean                      3.111160                1.353978   \n",
+      "std                       3.052602                1.523491   \n",
+      "min                       0.000000                0.000000   \n",
+      "25%                       1.000000                0.000000   \n",
+      "50%                       2.000000                1.000000   \n",
+      "75%                       4.000000                2.000000   \n",
+      "max                      30.000000               16.000000   \n",
+      "\n",
+      "       Default : Access DRM content. (S)  \\\n",
+      "count                       29999.000000   \n",
+      "mean                            0.000300   \n",
+      "std                             0.017318   \n",
+      "min                             0.000000   \n",
+      "25%                             0.000000   \n",
+      "50%                             0.000000   \n",
+      "75%                             0.000000   \n",
+      "max                             1.000000   \n",
+      "\n",
+      "       Default : Access Email provider data (S)  \\\n",
+      "count                              29999.000000   \n",
+      "mean                                   0.000700   \n",
+      "std                                    0.026449   \n",
+      "min                                    0.000000   \n",
+      "25%                                    0.000000   \n",
+      "50%                                    0.000000   \n",
+      "75%                                    0.000000   \n",
+      "max                                    1.000000   \n",
+      "\n",
+      "       Default : Access all system downloads (S)  \\\n",
+      "count                                    29999.0   \n",
+      "mean                                         0.0   \n",
+      "std                                          0.0   \n",
+      "min                                          0.0   \n",
+      "25%                                          0.0   \n",
+      "50%                                          0.0   \n",
+      "75%                                          0.0   \n",
+      "max                                          0.0   \n",
+      "\n",
+      "       Default : Access download manager. (S)  \\\n",
+      "count                            29999.000000   \n",
+      "mean                                 0.000400   \n",
+      "std                                  0.019997   \n",
+      "min                                  0.000000   \n",
+      "25%                                  0.000000   \n",
+      "50%                                  0.000000   \n",
+      "75%                                  0.000000   \n",
+      "max                                  1.000000   \n",
+      "\n",
+      "       Default : Advanced download manager functions. (S)  ...  \\\n",
+      "count                                       29999.000000   ...   \n",
+      "mean                                            0.000033   ...   \n",
+      "std                                             0.005774   ...   \n",
+      "min                                             0.000000   ...   \n",
+      "25%                                             0.000000   ...   \n",
+      "50%                                             0.000000   ...   \n",
+      "75%                                             0.000000   ...   \n",
+      "max                                             1.000000   ...   \n",
+      "\n",
+      "       Your personal information : read calendar events (D)  \\\n",
+      "count                                       29999.000000      \n",
+      "mean                                            0.014667      \n",
+      "std                                             0.120219      \n",
+      "min                                             0.000000      \n",
+      "25%                                             0.000000      \n",
+      "50%                                             0.000000      \n",
+      "75%                                             0.000000      \n",
+      "max                                             1.000000      \n",
+      "\n",
+      "       Your personal information : read contact data (D)  \\\n",
+      "count                                       29999.000000   \n",
+      "mean                                            0.087970   \n",
+      "std                                             0.283255   \n",
+      "min                                             0.000000   \n",
+      "25%                                             0.000000   \n",
+      "50%                                             0.000000   \n",
+      "75%                                             0.000000   \n",
+      "max                                             1.000000   \n",
+      "\n",
+      "       Your personal information : read sensitive log data (D)  \\\n",
+      "count                                       29999.000000         \n",
+      "mean                                            0.023801         \n",
+      "std                                             0.152431         \n",
+      "min                                             0.000000         \n",
+      "25%                                             0.000000         \n",
+      "50%                                             0.000000         \n",
+      "75%                                             0.000000         \n",
+      "max                                             1.000000         \n",
+      "\n",
+      "       Your personal information : read user defined dictionary (D)  \\\n",
+      "count                                       29999.000000              \n",
+      "mean                                            0.001333              \n",
+      "std                                             0.036492              \n",
+      "min                                             0.000000              \n",
+      "25%                                             0.000000              \n",
+      "50%                                             0.000000              \n",
+      "75%                                             0.000000              \n",
+      "max                                             1.000000              \n",
+      "\n",
+      "       Your personal information : retrieve system internal state (S)  \\\n",
+      "count                                       29999.000000                \n",
+      "mean                                            0.000567                \n",
+      "std                                             0.023799                \n",
+      "min                                             0.000000                \n",
+      "25%                                             0.000000                \n",
+      "50%                                             0.000000                \n",
+      "75%                                             0.000000                \n",
+      "max                                             1.000000                \n",
+      "\n",
+      "       Your personal information : set alarm in alarm clock (S)  \\\n",
+      "count                                       29999.000000          \n",
+      "mean                                            0.000400          \n",
+      "std                                             0.019997          \n",
+      "min                                             0.000000          \n",
+      "25%                                             0.000000          \n",
+      "50%                                             0.000000          \n",
+      "75%                                             0.000000          \n",
+      "max                                             1.000000          \n",
+      "\n",
+      "       Your personal information : write Browser's history and bookmarks (D)  \\\n",
+      "count                                       29999.000000                       \n",
+      "mean                                            0.016567                       \n",
+      "std                                             0.127645                       \n",
+      "min                                             0.000000                       \n",
+      "25%                                             0.000000                       \n",
+      "50%                                             0.000000                       \n",
+      "75%                                             0.000000                       \n",
+      "max                                             1.000000                       \n",
+      "\n",
+      "       Your personal information : write contact data (D)  \\\n",
+      "count                                       29999.000000    \n",
+      "mean                                            0.039735    \n",
+      "std                                             0.195338    \n",
+      "min                                             0.000000    \n",
+      "25%                                             0.000000    \n",
+      "50%                                             0.000000    \n",
+      "75%                                             0.000000    \n",
+      "max                                             1.000000    \n",
+      "\n",
+      "       Your personal information : write to user defined dictionary (S)  \\\n",
+      "count                                       29999.000000                  \n",
+      "mean                                            0.001500                  \n",
+      "std                                             0.038702                  \n",
+      "min                                             0.000000                  \n",
+      "25%                                             0.000000                  \n",
+      "50%                                             0.000000                  \n",
+      "75%                                             0.000000                  \n",
+      "max                                             1.000000                  \n",
+      "\n",
+      "              Class  \n",
+      "count  29999.000000  \n",
+      "mean       0.666689  \n",
+      "std        0.471405  \n",
+      "min        0.000000  \n",
+      "25%        0.000000  \n",
+      "50%        1.000000  \n",
+      "75%        1.000000  \n",
+      "max        1.000000  \n",
+      "\n",
+      "[8 rows x 179 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df.head())  # First 5 rows\n",
+    "print(df.info())  # Column details and data types\n",
+    "print(df.describe())  # Summary statistics for numerical columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "id": "9462ba26-575a-4d83-8fa2-419738dbdd43",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "App                                                                      1\n",
+      "Package                                                                  0\n",
+      "Category                                                                 0\n",
+      "Description                                                              3\n",
+      "Rating                                                                   0\n",
+      "                                                                        ..\n",
+      "Your personal information : set alarm in alarm clock (S)                 0\n",
+      "Your personal information : write Browser's history and bookmarks (D)    0\n",
+      "Your personal information : write contact data (D)                       0\n",
+      "Your personal information : write to user defined dictionary (S)         0\n",
+      "Class                                                                    0\n",
+      "Length: 184, dtype: int64\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df.isnull().sum())  # Check for missing values\n",
+    "df = df.dropna()  # Drop rows with missing values (if appropriate)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "id": "2c7f0035-094a-4d4d-9369-7b83fe29edf3",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "ename": "KeyError",
+     "evalue": "'numeric_column'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+      "File \u001b[1;32m~\\anaconda3\\Lib\\site-packages\\pandas\\core\\indexes\\base.py:3805\u001b[0m, in \u001b[0;36mIndex.get_loc\u001b[1;34m(self, key)\u001b[0m\n\u001b[0;32m   3804\u001b[0m \u001b[38;5;28;01mtry\u001b[39;00m:\n\u001b[1;32m-> 3805\u001b[0m     \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39m_engine\u001b[38;5;241m.\u001b[39mget_loc(casted_key)\n\u001b[0;32m   3806\u001b[0m \u001b[38;5;28;01mexcept\u001b[39;00m \u001b[38;5;167;01mKeyError\u001b[39;00m \u001b[38;5;28;01mas\u001b[39;00m err:\n",
+      "File \u001b[1;32mindex.pyx:167\u001b[0m, in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[1;34m()\u001b[0m\n",
+      "File \u001b[1;32mindex.pyx:196\u001b[0m, in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[1;34m()\u001b[0m\n",
+      "File \u001b[1;32mpandas\\\\_libs\\\\hashtable_class_helper.pxi:7081\u001b[0m, in \u001b[0;36mpandas._libs.hashtable.PyObjectHashTable.get_item\u001b[1;34m()\u001b[0m\n",
+      "File \u001b[1;32mpandas\\\\_libs\\\\hashtable_class_helper.pxi:7089\u001b[0m, in \u001b[0;36mpandas._libs.hashtable.PyObjectHashTable.get_item\u001b[1;34m()\u001b[0m\n",
+      "\u001b[1;31mKeyError\u001b[0m: 'numeric_column'",
+      "\nThe above exception was the direct cause of the following exception:\n",
+      "\u001b[1;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[43], line 1\u001b[0m\n\u001b[1;32m----> 1\u001b[0m plt\u001b[38;5;241m.\u001b[39mhist(df[\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mnumeric_column\u001b[39m\u001b[38;5;124m'\u001b[39m], bins\u001b[38;5;241m=\u001b[39m\u001b[38;5;241m20\u001b[39m, color\u001b[38;5;241m=\u001b[39m\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mblue\u001b[39m\u001b[38;5;124m'\u001b[39m, edgecolor\u001b[38;5;241m=\u001b[39m\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mblack\u001b[39m\u001b[38;5;124m'\u001b[39m)\n\u001b[0;32m      2\u001b[0m plt\u001b[38;5;241m.\u001b[39mtitle(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mHistogram of Numeric Column\u001b[39m\u001b[38;5;124m'\u001b[39m)\n\u001b[0;32m      3\u001b[0m plt\u001b[38;5;241m.\u001b[39mxlabel(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mValue\u001b[39m\u001b[38;5;124m'\u001b[39m)\n",
+      "File \u001b[1;32m~\\anaconda3\\Lib\\site-packages\\pandas\\core\\frame.py:4102\u001b[0m, in \u001b[0;36mDataFrame.__getitem__\u001b[1;34m(self, key)\u001b[0m\n\u001b[0;32m   4100\u001b[0m \u001b[38;5;28;01mif\u001b[39;00m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mcolumns\u001b[38;5;241m.\u001b[39mnlevels \u001b[38;5;241m>\u001b[39m \u001b[38;5;241m1\u001b[39m:\n\u001b[0;32m   4101\u001b[0m     \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39m_getitem_multilevel(key)\n\u001b[1;32m-> 4102\u001b[0m indexer \u001b[38;5;241m=\u001b[39m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mcolumns\u001b[38;5;241m.\u001b[39mget_loc(key)\n\u001b[0;32m   4103\u001b[0m \u001b[38;5;28;01mif\u001b[39;00m is_integer(indexer):\n\u001b[0;32m   4104\u001b[0m     indexer \u001b[38;5;241m=\u001b[39m [indexer]\n",
+      "File \u001b[1;32m~\\anaconda3\\Lib\\site-packages\\pandas\\core\\indexes\\base.py:3812\u001b[0m, in \u001b[0;36mIndex.get_loc\u001b[1;34m(self, key)\u001b[0m\n\u001b[0;32m   3807\u001b[0m     \u001b[38;5;28;01mif\u001b[39;00m \u001b[38;5;28misinstance\u001b[39m(casted_key, \u001b[38;5;28mslice\u001b[39m) \u001b[38;5;129;01mor\u001b[39;00m (\n\u001b[0;32m   3808\u001b[0m         \u001b[38;5;28misinstance\u001b[39m(casted_key, abc\u001b[38;5;241m.\u001b[39mIterable)\n\u001b[0;32m   3809\u001b[0m         \u001b[38;5;129;01mand\u001b[39;00m \u001b[38;5;28many\u001b[39m(\u001b[38;5;28misinstance\u001b[39m(x, \u001b[38;5;28mslice\u001b[39m) \u001b[38;5;28;01mfor\u001b[39;00m x \u001b[38;5;129;01min\u001b[39;00m casted_key)\n\u001b[0;32m   3810\u001b[0m     ):\n\u001b[0;32m   3811\u001b[0m         \u001b[38;5;28;01mraise\u001b[39;00m InvalidIndexError(key)\n\u001b[1;32m-> 3812\u001b[0m     \u001b[38;5;28;01mraise\u001b[39;00m \u001b[38;5;167;01mKeyError\u001b[39;00m(key) \u001b[38;5;28;01mfrom\u001b[39;00m \u001b[38;5;21;01merr\u001b[39;00m\n\u001b[0;32m   3813\u001b[0m \u001b[38;5;28;01mexcept\u001b[39;00m \u001b[38;5;167;01mTypeError\u001b[39;00m:\n\u001b[0;32m   3814\u001b[0m     \u001b[38;5;66;03m# If we have a listlike key, _check_indexing_error will raise\u001b[39;00m\n\u001b[0;32m   3815\u001b[0m     \u001b[38;5;66;03m#  InvalidIndexError. Otherwise we fall through and re-raise\u001b[39;00m\n\u001b[0;32m   3816\u001b[0m     \u001b[38;5;66;03m#  the TypeError.\u001b[39;00m\n\u001b[0;32m   3817\u001b[0m     \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39m_check_indexing_error(key)\n",
+      "\u001b[1;31mKeyError\u001b[0m: 'numeric_column'"
+     ]
+    }
+   ],
+   "source": [
+    "plt.hist(df['numeric_column'], bins=20, color='blue', edgecolor='black')\n",
+    "plt.title('Histogram of Numeric Column')\n",
+    "plt.xlabel('Value')\n",
+    "plt.ylabel('Frequency')\n",
+    "plt.savefig(\"C:/Users/amine/OneDrive/Desktop/java/cyberguardian/figures/graphofnames.png\", dpi=300)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "id": "1193d0c3-d701-4a40-9217-0e39e431b706",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Index(['App', 'Package', 'Category', 'Description', 'Rating',\n",
+      "       'Number of ratings', 'Price', 'Related apps',\n",
+      "       'Dangerous permissions count', 'Safe permissions count',\n",
+      "       ...\n",
+      "       'Your personal information : read calendar events (D)',\n",
+      "       'Your personal information : read contact data (D)',\n",
+      "       'Your personal information : read sensitive log data (D)',\n",
+      "       'Your personal information : read user defined dictionary (D)',\n",
+      "       'Your personal information : retrieve system internal state (S)',\n",
+      "       'Your personal information : set alarm in alarm clock (S)',\n",
+      "       'Your personal information : write Browser's history and bookmarks (D)',\n",
+      "       'Your personal information : write contact data (D)',\n",
+      "       'Your personal information : write to user defined dictionary (S)',\n",
+      "       'Class'],\n",
+      "      dtype='object', length=184)\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df.columns)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "id": "bf051679-eb3c-4c75-b1a3-81dd6391b14a",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 640x480 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.hist(df['Dangerous permissions count'], bins=20, color='blue', edgecolor='black')\n",
+    "plt.title('Histogram of Dangerous Permissions Count')\n",
+    "plt.xlabel('Number of Dangerous Permissions')\n",
+    "plt.ylabel('Frequency')\n",
+    "plt.savefig(\"C:/Users/amine/OneDrive/Desktop/java/cyberguardian/figures/graphofinfos.png\", dpi=300)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "id": "cc1a4334-fbe0-4db6-819d-45fca127baaf",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 1000x600 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.figure(figsize=(10, 6))\n",
+    "sns.boxplot(data=df[['Dangerous permissions count', 'Safe permissions count']])\n",
+    "plt.title('Box Plot of Dangerous vs. Safe Permissions')\n",
+    "plt.ylabel('Number of Permissions')\n",
+    "plt.savefig(\"C:/Users/amine/OneDrive/Desktop/java/cyberguardian/figures/graphofnbofpermissions.png\", dpi=300)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "id": "998d1114-683e-4b26-8b44-2eebeacfd86d",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 640x480 with 2 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "# Correlation heatmap\n",
+    "correlation_matrix = df[['Dangerous permissions count', 'Safe permissions count', 'Rating', 'Number of ratings']].corr()\n",
+    "sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')\n",
+    "plt.title('Correlation Heatmap')\n",
+    "plt.savefig(\"C:/Users/amine/OneDrive/Desktop/java/cyberguardian/figures/Correlation_Heatmap.png\", dpi=300)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "id": "7274c532-beb7-4ab7-9d04-fd7311da2e69",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 1200x600 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "category_dangerous = df.groupby('Category')['Dangerous permissions count'].sum().sort_values(ascending=False)\n",
+    "\n",
+    "# Bar plot for Dangerous Permissions by Category\n",
+    "plt.figure(figsize=(12, 6))\n",
+    "category_dangerous.plot(kind='bar', color='red')\n",
+    "plt.title('Total Dangerous Permissions by Category')\n",
+    "plt.xlabel('Category')\n",
+    "plt.ylabel('Total Dangerous Permissions')\n",
+    "plt.savefig(\"C:/Users/amine/OneDrive/Desktop/java/cyberguardian/figures/Total_Dangerous_Permissions.png\", dpi=300)\n",
+    "plt.xticks(rotation=90)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "id": "700ebdaf-c496-4e4e-8a1b-d3636a92969b",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Development tools : enable application debugging (D)', 'Development tools : limit number of running processes (D)', 'Development tools : make all background applications close (D)', 'Development tools : send Linux signals to applications (D)', 'Hardware controls : change your audio settings (D)', 'Hardware controls : record audio (D)', 'Hardware controls : take pictures and videos (D)', 'Network communication : control Near Field Communication (D)', 'Network communication : create Bluetooth connections (D)', 'Network communication : full Internet access (D)', 'Network communication : make/receive Internet calls (D)', 'Phone calls : intercept outgoing calls (D)', 'Phone calls : read phone state and identity (D)', 'Services that cost you money : directly call phone numbers (D)', 'Services that cost you money : send SMS messages (D)', 'Storage : modify/delete USB storage contents modify/delete SD card contents (D)', 'System tools : allow Wi-Fi Multicast reception (D)', 'System tools : bluetooth administration (D)', 'System tools : change Wi-Fi state (D)', 'System tools : change network connectivity (D)', 'System tools : change your UI settings (D)', 'System tools : delete all application cache data (D)', 'System tools : disable keylock (D)', 'System tools : display system-level alerts (D)', 'System tools : format external storage (D)', 'System tools : make application always run (D)', 'System tools : modify global animation speed (D)', 'System tools : modify global system settings (D)', 'System tools : mount and unmount filesystems (D)', 'System tools : prevent device from sleeping (D)', 'System tools : reorder running applications (D)', 'System tools : retrieve running applications (D)', 'System tools : set time zone (D)', 'System tools : write Access Point Name settings (D)', 'System tools : write subscribed feeds (D)', 'System tools : write sync settings (D)', 'Your accounts : Blogger (D)', 'Your accounts : Google App Engine (D)', 'Your accounts : Google Docs (D)', 'Your accounts : Google Finance (D)', 'Your accounts : Google Maps (D)', 'Your accounts : Google Spreadsheets (D)', 'Your accounts : Google Voice (D)', 'Your accounts : Google mail (D)', 'Your accounts : Picasa Web Albums (D)', 'Your accounts : YouTube (D)', 'Your accounts : YouTube usernames (D)', 'Your accounts : access other Google services (D)', 'Your accounts : act as an account authenticator (D)', 'Your accounts : contacts data in Google accounts (D)', 'Your accounts : manage the accounts list (D)', 'Your accounts : use the authentication credentials of an account (D)', 'Your location : coarse (network-based) location (D)', 'Your location : fine (GPS) location (D)', 'Your location : mock location sources for testing (D)', 'Your messages : Read Email attachments (D)', 'Your messages : edit SMS or MMS (D)', 'Your messages : modify Gmail (D)', 'Your messages : read Gmail (D)', 'Your messages : read Gmail attachment previews (D)', 'Your messages : read SMS or MMS (D)', 'Your messages : read instant messages (D)', 'Your messages : receive MMS (D)', 'Your messages : receive SMS (D)', 'Your messages : receive WAP (D)', 'Your messages : write instant messages (D)', 'Your personal information : add or modify calendar events and send email to guests (D)', \"Your personal information : read Browser's history and bookmarks (D)\", 'Your personal information : read calendar events (D)', 'Your personal information : read contact data (D)', 'Your personal information : read sensitive log data (D)', 'Your personal information : read user defined dictionary (D)', \"Your personal information : write Browser's history and bookmarks (D)\", 'Your personal information : write contact data (D)']\n"
+     ]
+    }
+   ],
+   "source": [
+    "dangerous_permissions = [col for col in df.columns if col.endswith('(D)')]\n",
+    "print(dangerous_permissions)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 57,
+   "id": "b14f1ab8-8281-40a2-bf9b-4e05145aa02a",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Network communication : full Internet access (D)                                   24011\n",
+      "Storage : modify/delete USB storage contents modify/delete SD card contents (D)    11698\n",
+      "Phone calls : read phone state and identity (D)                                    10951\n",
+      "Your location : fine (GPS) location (D)                                             6375\n",
+      "Your location : coarse (network-based) location (D)                                 6261\n",
+      "                                                                                   ...  \n",
+      "Development tools : enable application debugging (D)                                   3\n",
+      "Development tools : limit number of running processes (D)                              2\n",
+      "Your messages : read Gmail attachment previews (D)                                     0\n",
+      "Your messages : write instant messages (D)                                             0\n",
+      "Your accounts : Blogger (D)                                                            0\n",
+      "Length: 74, dtype: int64\n"
+     ]
+    }
+   ],
+   "source": [
+    "permission_counts = df[dangerous_permissions].sum().sort_values(ascending=False)\n",
+    "print(permission_counts)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "id": "f4f098fa-4388-4915-bb69-819711a136eb",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Network communication : full Internet access (D)                                   82.116963\n",
+      "Storage : modify/delete USB storage contents modify/delete SD card contents (D)    40.006840\n",
+      "Phone calls : read phone state and identity (D)                                    37.452120\n",
+      "Your location : fine (GPS) location (D)                                            21.802326\n",
+      "Your location : coarse (network-based) location (D)                                21.412449\n",
+      "                                                                                     ...    \n",
+      "Development tools : enable application debugging (D)                                0.010260\n",
+      "Development tools : limit number of running processes (D)                           0.006840\n",
+      "Your messages : read Gmail attachment previews (D)                                  0.000000\n",
+      "Your messages : write instant messages (D)                                          0.000000\n",
+      "Your accounts : Blogger (D)                                                         0.000000\n",
+      "Length: 74, dtype: float64\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Calculate the percentage of each dangerous permission\n",
+    "total_apps = len(df)\n",
+    "permission_percentages = (permission_counts / total_apps) * 100\n",
+    "print(permission_percentages)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "id": "4052ad85-0af9-4c9e-8ca9-58ba3994a792",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "C:\\Users\\amine\\AppData\\Local\\Temp\\ipykernel_12756\\2412911186.py:4: FutureWarning: \n",
+      "\n",
+      "Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.\n",
+      "\n",
+      "  sns.barplot(x=permission_percentages.values, y=permission_percentages.index, palette='viridis')\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 1200x800 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.figure(figsize=(12, 8))\n",
+    "\n",
+    "# Create a bar plot\n",
+    "sns.barplot(x=permission_percentages.values, y=permission_percentages.index, palette='viridis')\n",
+    "\n",
+    "# Add labels and title\n",
+    "plt.xlabel('Percentage of Apps (%)')\n",
+    "plt.ylabel('Dangerous Permissions')\n",
+    "plt.title('Percentage of Apps with Dangerous Permissions (Sorted by Most Dangerous to Least)')\n",
+    "plt.savefig(\"C:/Users/amine/OneDrive/Desktop/java/cyberguardian/figures/Sorted_by_Most_Dangerous_to_Least.png\", dpi=300)\n",
+    "# Show the plot\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "id": "9cd44e56-5e78-4393-9221-2b62db75c202",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "                              App                                   Package  \\\n",
+      "0         Canada Post Corporation                    com.canadapost.android   \n",
+      "1                       Word Farm                 com.realcasualgames.words   \n",
+      "2            Fortunes of War FREE                        fortunesofwar.free   \n",
+      "3  Better Keyboard: Avatar Purple  com.cc.betterkeyboard.skins.avatarpurple   \n",
+      "4                      Boxing Day                indiaNIC.android.BoxingDay   \n",
+      "\n",
+      "           Category                                        Description  \\\n",
+      "0          Business  Canada Post Mobile App gives you access to som...   \n",
+      "1    Brain & Puzzle  Speed and strategy combine in this exciting wo...   \n",
+      "2    Cards & Casino  Fortunes of War is a fast-paced, easy to learn...   \n",
+      "3  Libraries & Demo  Skin for Better Keyboard featuring a glossy fe...   \n",
+      "4         Lifestyle  Boxing Day by Christopher Jaymes<p>Based on a ...   \n",
+      "\n",
+      "   Rating  Number of ratings  Price  \\\n",
+      "0     3.1                 77   0.00   \n",
+      "1     4.3                199   0.00   \n",
+      "2     4.1                243   0.00   \n",
+      "3     3.6               2589   0.00   \n",
+      "4     0.0                  0   5.99   \n",
+      "\n",
+      "                                        Related apps  \\\n",
+      "0  {com.adaffix.pub.ca.android, com.kevinquan.gas...   \n",
+      "1  {air.com.zubawing.FastWordLite, com.joybits.do...   \n",
+      "2  {com.kevinquan.condado, hu.monsta.pazaak, net....   \n",
+      "3  {eu.gdumoulin.betterandroid.skins.transparent....   \n",
+      "4                                                NaN   \n",
+      "\n",
+      "   Dangerous permissions count  Safe permissions count  ...  \\\n",
+      "0                          7.0                       1  ...   \n",
+      "1                          3.0                       2  ...   \n",
+      "2                          1.0                       1  ...   \n",
+      "3                          0.0                       0  ...   \n",
+      "4                          1.0                       0  ...   \n",
+      "\n",
+      "   Your personal information : read calendar events (D)  \\\n",
+      "0                                                  0      \n",
+      "1                                                  0      \n",
+      "2                                                  0      \n",
+      "3                                                  0      \n",
+      "4                                                  0      \n",
+      "\n",
+      "   Your personal information : read contact data (D)  \\\n",
+      "0                                                  1   \n",
+      "1                                                  0   \n",
+      "2                                                  0   \n",
+      "3                                                  0   \n",
+      "4                                                  0   \n",
+      "\n",
+      "   Your personal information : read sensitive log data (D)  \\\n",
+      "0                                                  0         \n",
+      "1                                                  0         \n",
+      "2                                                  0         \n",
+      "3                                                  0         \n",
+      "4                                                  0         \n",
+      "\n",
+      "   Your personal information : read user defined dictionary (D)  \\\n",
+      "0                                                  0              \n",
+      "1                                                  0              \n",
+      "2                                                  0              \n",
+      "3                                                  0              \n",
+      "4                                                  0              \n",
+      "\n",
+      "   Your personal information : retrieve system internal state (S)  \\\n",
+      "0                                                  0                \n",
+      "1                                                  0                \n",
+      "2                                                  0                \n",
+      "3                                                  0                \n",
+      "4                                                  0                \n",
+      "\n",
+      "   Your personal information : set alarm in alarm clock (S)  \\\n",
+      "0                                                  0          \n",
+      "1                                                  0          \n",
+      "2                                                  0          \n",
+      "3                                                  0          \n",
+      "4                                                  0          \n",
+      "\n",
+      "   Your personal information : write Browser's history and bookmarks (D)  \\\n",
+      "0                                                  0                       \n",
+      "1                                                  0                       \n",
+      "2                                                  0                       \n",
+      "3                                                  0                       \n",
+      "4                                                  0                       \n",
+      "\n",
+      "   Your personal information : write contact data (D)  \\\n",
+      "0                                                  1    \n",
+      "1                                                  0    \n",
+      "2                                                  0    \n",
+      "3                                                  0    \n",
+      "4                                                  0    \n",
+      "\n",
+      "   Your personal information : write to user defined dictionary (S)  Class  \n",
+      "0                                                  0                     0  \n",
+      "1                                                  0                     0  \n",
+      "2                                                  0                     0  \n",
+      "3                                                  0                     0  \n",
+      "4                                                  0                     1  \n",
+      "\n",
+      "[5 rows x 184 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Use the absolute path (macOS format)\n",
+    "df = pd.read_csv(\"C:/Users/amine/OneDrive/Desktop/pfa/Android_Permission.csv\")\n",
+    "\n",
+    "# Check the first 5 rows\n",
+    "print(df.head())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "id": "026be37d-8942-4da6-8774-176637d917e3",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "dangerous_permissions = [col for col in df.columns if col.endswith('(D)')]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 67,
+   "id": "1654d363-7a9a-4da1-a9fe-50c854d632fe",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# Creating a target variable based on a threshold\n",
+    "threshold = 5  # Apps with more than 5 dangerous permissions are threats\n",
+    "df['Class'] = df[dangerous_permissions].sum(axis=1).apply(lambda x: 'Threat' if x > threshold else 'Benign')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "id": "ab66ae1e-946a-4a59-a8ee-c3ae6c46f406",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X = df[dangerous_permissions]  # Features (dangerous permissions)\n",
+    "y = df['Class']  # Target variable"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 71,
+   "id": "2a48e1bb-9919-43e1-8166-0eab80ef0cb5",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "from sklearn.model_selection import train_test_split\n",
+    "\n",
+    "# Split the data (80% training, 20% testing)\n",
+    "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 73,
+   "id": "83cf3b5f-c053-490a-bb05-bfc6fdd3f0b2",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Accuracy: 0.999\n",
+      "              precision    recall  f1-score   support\n",
+      "\n",
+      "      Benign       1.00      1.00      1.00      5127\n",
+      "      Threat       1.00      0.99      1.00       873\n",
+      "\n",
+      "    accuracy                           1.00      6000\n",
+      "   macro avg       1.00      1.00      1.00      6000\n",
+      "weighted avg       1.00      1.00      1.00      6000\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "from sklearn.linear_model import LogisticRegression\n",
+    "from sklearn.metrics import classification_report, accuracy_score\n",
+    "\n",
+    "# Train the model\n",
+    "model = LogisticRegression()\n",
+    "model.fit(X_train, y_train)\n",
+    "\n",
+    "# Make predictions\n",
+    "y_pred = model.predict(X_test)\n",
+    "\n",
+    "# Evaluate the model\n",
+    "print(\"Accuracy:\", accuracy_score(y_test, y_pred))\n",
+    "print(classification_report(y_test, y_pred))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 75,
+   "id": "6c1a9cda-854d-4e99-9769-f6bcf01587ce",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Accuracy: 0.9916666666666667\n",
+      "              precision    recall  f1-score   support\n",
+      "\n",
+      "      Benign       0.99      1.00      1.00      5127\n",
+      "      Threat       1.00      0.95      0.97       873\n",
+      "\n",
+      "    accuracy                           0.99      6000\n",
+      "   macro avg       0.99      0.97      0.98      6000\n",
+      "weighted avg       0.99      0.99      0.99      6000\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "from sklearn.ensemble import RandomForestClassifier\n",
+    "\n",
+    "# Train the model\n",
+    "model = RandomForestClassifier(random_state=42)\n",
+    "model.fit(X_train, y_train)\n",
+    "\n",
+    "# Make predictions\n",
+    "y_pred = model.predict(X_test)\n",
+    "\n",
+    "# Evaluate the model\n",
+    "print(\"Accuracy:\", accuracy_score(y_test, y_pred))\n",
+    "print(classification_report(y_test, y_pred))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 77,
+   "id": "4120da14-388f-4c31-a8f2-59d1ce3bfd7e",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'xgboost'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[77], line 1\u001b[0m\n\u001b[1;32m----> 1\u001b[0m \u001b[38;5;28;01mfrom\u001b[39;00m \u001b[38;5;21;01mxgboost\u001b[39;00m \u001b[38;5;28;01mimport\u001b[39;00m XGBClassifier\n\u001b[0;32m      3\u001b[0m \u001b[38;5;66;03m# Train the model\u001b[39;00m\n\u001b[0;32m      4\u001b[0m model \u001b[38;5;241m=\u001b[39m XGBClassifier(random_state\u001b[38;5;241m=\u001b[39m\u001b[38;5;241m42\u001b[39m)\n",
+      "\u001b[1;31mModuleNotFoundError\u001b[0m: No module named 'xgboost'"
+     ]
+    }
+   ],
+   "source": [
+    "from xgboost import XGBClassifier\n",
+    "\n",
+    "# Train the model\n",
+    "model = XGBClassifier(random_state=42)\n",
+    "model.fit(X_train, y_train)\n",
+    "\n",
+    "# Make predictions\n",
+    "y_pred = model.predict(X_test)\n",
+    "\n",
+    "# Evaluate the model\n",
+    "print(\"Accuracy:\", accuracy_score(y_test, y_pred))\n",
+    "print(classification_report(y_test, y_pred))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 79,
+   "id": "3d3c46cd-2d5d-4e63-bf1b-05ebc01489ef",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Confusion Matrix:\n",
+      "[[5123    4]\n",
+      " [  46  827]]\n",
+      "Classification Report:\n",
+      "              precision    recall  f1-score   support\n",
+      "\n",
+      "      Benign       0.99      1.00      1.00      5127\n",
+      "      Threat       1.00      0.95      0.97       873\n",
+      "\n",
+      "    accuracy                           0.99      6000\n",
+      "   macro avg       0.99      0.97      0.98      6000\n",
+      "weighted avg       0.99      0.99      0.99      6000\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "from sklearn.metrics import confusion_matrix, classification_report\n",
+    "\n",
+    "# Confusion matrix\n",
+    "print(\"Confusion Matrix:\")\n",
+    "print(confusion_matrix(y_test, y_pred))\n",
+    "\n",
+    "# Classification report\n",
+    "print(\"Classification Report:\")\n",
+    "print(classification_report(y_test, y_pred))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 81,
+   "id": "32689e3a-c4dc-420c-9894-8e05f2b52c5f",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "App 1: Threat = 23.00%, Benign = 77.00%\n",
+      "App 2: Threat = 0.00%, Benign = 100.00%\n",
+      "App 3: Threat = 0.00%, Benign = 100.00%\n",
+      "App 4: Threat = 100.00%, Benign = 0.00%\n",
+      "App 5: Threat = 23.00%, Benign = 77.00%\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Get probabilities\n",
+    "y_proba = model.predict_proba(X_test)\n",
+    "\n",
+    "# Convert to percentage\n",
+    "y_proba_percent = y_proba * 100\n",
+    "\n",
+    "# Display probabilities for the first 5 apps\n",
+    "for i in range(5):\n",
+    "    print(f\"App {i+1}: Threat = {y_proba_percent[i][1]:.2f}%, Benign = {y_proba_percent[i][0]:.2f}%\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 83,
+   "id": "11d11ea9-4cf4-4841-b7a8-76555761c6e5",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 640x480 with 2 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import seaborn as sns\n",
+    "import matplotlib.pyplot as plt\n",
+    "from sklearn.metrics import ConfusionMatrixDisplay\n",
+    "\n",
+    "# Plot confusion matrix\n",
+    "ConfusionMatrixDisplay.from_predictions(y_test, y_pred, cmap='Blues')\n",
+    "plt.title('Confusion Matrix')\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 85,
+   "id": "6038141d-4678-4078-9c70-fb95b19bc269",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 640x480 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "from sklearn.metrics import RocCurveDisplay\n",
+    "\n",
+    "# Plot ROC curve\n",
+    "RocCurveDisplay.from_estimator(model, X_test, y_test)\n",
+    "plt.title('ROC Curve')\n",
+    "plt.savefig(\"C:/Users/amine/OneDrive/Desktop/java/cyberguardian/figures/ROC_Curve.png\", dpi=300)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "id": "02b61a1e-2380-4f07-b5e9-b86ba1675311",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Accuracy: 0.9916666666666667\n",
+      "              precision    recall  f1-score   support\n",
+      "\n",
+      "      Benign       0.99      1.00      1.00      5127\n",
+      "      Threat       1.00      0.95      0.97       873\n",
+      "\n",
+      "    accuracy                           0.99      6000\n",
+      "   macro avg       0.99      0.97      0.98      6000\n",
+      "weighted avg       0.99      0.99      0.99      6000\n",
+      "\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 640x480 with 2 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "from sklearn.ensemble import RandomForestClassifier\n",
+    "from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "# Load the dataset\n",
+    "df = pd.read_csv(\"C:/Users/amine/OneDrive/Desktop/pfa/Android_Permission.csv\")\n",
+    "\n",
+    "# Identify dangerous permissions\n",
+    "dangerous_permissions = [col for col in df.columns if col.endswith('(D)')]\n",
+    "\n",
+    "# Create target variable\n",
+    "threshold = 5\n",
+    "df['Class'] = df[dangerous_permissions].sum(axis=1).apply(lambda x: 'Threat' if x > threshold else 'Benign')\n",
+    "\n",
+    "# Prepare features and target\n",
+    "X = df[dangerous_permissions]\n",
+    "y = df['Class']\n",
+    "\n",
+    "# Split the data\n",
+    "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n",
+    "\n",
+    "# Train the model\n",
+    "model = RandomForestClassifier(random_state=42)\n",
+    "model.fit(X_train, y_train)\n",
+    "\n",
+    "# Make predictions\n",
+    "y_pred = model.predict(X_test)\n",
+    "\n",
+    "# Evaluate the model\n",
+    "print(\"Accuracy:\", accuracy_score(y_test, y_pred))\n",
+    "print(classification_report(y_test, y_pred))\n",
+    "\n",
+    "# Confusion matrix\n",
+    "ConfusionMatrixDisplay.from_predictions(y_test, y_pred, cmap='Blues')\n",
+    "plt.title('Confusion Matrix')\n",
+    "plt.savefig(\"C:/Users/amine/OneDrive/Desktop/java/cyberguardian/figures/Confusion_Matrix.png\", dpi=300)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 88,
+   "id": "6de51ad9-f53c-40fa-af88-09886d9a60b6",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'xgboost'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[88], line 1\u001b[0m\n\u001b[1;32m----> 1\u001b[0m \u001b[38;5;28;01mfrom\u001b[39;00m \u001b[38;5;21;01mxgboost\u001b[39;00m \u001b[38;5;28;01mimport\u001b[39;00m XGBClassifier\n\u001b[0;32m      3\u001b[0m \u001b[38;5;66;03m# Train the model\u001b[39;00m\n\u001b[0;32m      4\u001b[0m model \u001b[38;5;241m=\u001b[39m XGBClassifier(random_state\u001b[38;5;241m=\u001b[39m\u001b[38;5;241m42\u001b[39m)\n",
+      "\u001b[1;31mModuleNotFoundError\u001b[0m: No module named 'xgboost'"
+     ]
+    }
+   ],
+   "source": [
+    "from xgboost import XGBClassifier\n",
+    "\n",
+    "# Train the model\n",
+    "model = XGBClassifier(random_state=42)\n",
+    "model.fit(X_train, y_train)\n",
+    "\n",
+    "# Evaluate\n",
+    "y_pred = model.predict(X_test)\n",
+    "print(\"XGBoost Accuracy:\", accuracy_score(y_test, y_pred))\n",
+    "print(classification_report(y_test, y_pred))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "96506b47-01a7-4201-b7e0-fe45d90191da",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "pip install xgboost"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 91,
+   "id": "071039e5-6956-48f9-ae34-02fd59c8c989",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'xgboost'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[91], line 1\u001b[0m\n\u001b[1;32m----> 1\u001b[0m \u001b[38;5;28;01mfrom\u001b[39;00m \u001b[38;5;21;01mxgboost\u001b[39;00m \u001b[38;5;28;01mimport\u001b[39;00m XGBClassifier\n\u001b[0;32m      3\u001b[0m \u001b[38;5;66;03m# Train the model\u001b[39;00m\n\u001b[0;32m      4\u001b[0m model \u001b[38;5;241m=\u001b[39m XGBClassifier(random_state\u001b[38;5;241m=\u001b[39m\u001b[38;5;241m42\u001b[39m)\n",
+      "\u001b[1;31mModuleNotFoundError\u001b[0m: No module named 'xgboost'"
+     ]
+    }
+   ],
+   "source": [
+    "from xgboost import XGBClassifier\n",
+    "\n",
+    "# Train the model\n",
+    "model = XGBClassifier(random_state=42)\n",
+    "model.fit(X_train, y_train)\n",
+    "\n",
+    "# Evaluate\n",
+    "y_pred = model.predict(X_test)\n",
+    "print(\"XGBoost Accuracy:\", accuracy_score(y_test, y_pred))\n",
+    "print(classification_report(y_test, y_pred))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 93,
+   "id": "8967679f-fe30-4aae-b56f-656c0356663c",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'XGBClassifier' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[93], line 6\u001b[0m\n\u001b[0;32m      3\u001b[0m y_test_encoded \u001b[38;5;241m=\u001b[39m y_test\u001b[38;5;241m.\u001b[39mmap({\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mBenign\u001b[39m\u001b[38;5;124m'\u001b[39m: \u001b[38;5;241m0\u001b[39m, \u001b[38;5;124m'\u001b[39m\u001b[38;5;124mThreat\u001b[39m\u001b[38;5;124m'\u001b[39m: \u001b[38;5;241m1\u001b[39m})\n\u001b[0;32m      5\u001b[0m \u001b[38;5;66;03m# Train XGBoost\u001b[39;00m\n\u001b[1;32m----> 6\u001b[0m model \u001b[38;5;241m=\u001b[39m XGBClassifier(random_state\u001b[38;5;241m=\u001b[39m\u001b[38;5;241m42\u001b[39m)\n\u001b[0;32m      7\u001b[0m model\u001b[38;5;241m.\u001b[39mfit(X_train, y_train_encoded)\n\u001b[0;32m      9\u001b[0m \u001b[38;5;66;03m# Predict and evaluate\u001b[39;00m\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'XGBClassifier' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "# Map labels to numbers manually\n",
+    "y_train_encoded = y_train.map({'Benign': 0, 'Threat': 1})\n",
+    "y_test_encoded = y_test.map({'Benign': 0, 'Threat': 1})\n",
+    "\n",
+    "# Train XGBoost\n",
+    "model = XGBClassifier(random_state=42)\n",
+    "model.fit(X_train, y_train_encoded)\n",
+    "\n",
+    "# Predict and evaluate\n",
+    "y_pred_encoded = model.predict(X_test)\n",
+    "print(\"XGBoost Accuracy:\", accuracy_score(y_test_encoded, y_pred_encoded))\n",
+    "print(classification_report(y_test_encoded, y_pred_encoded))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "450776de-062c-4db9-b242-ddad2be0cf57",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python [conda env:base] *",
+   "language": "python",
+   "name": "conda-base-py"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
