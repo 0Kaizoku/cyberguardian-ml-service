@@ -6,5 +6,8 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+<<<<<<< HEAD
 .pyc
 .ipynb
+=======
+>>>>>>> 086a4b800ad52088b855b61ab65fef6eb3b3cff0
