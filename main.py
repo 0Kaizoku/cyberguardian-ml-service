@@ -44,10 +44,7 @@ async def predict(app_data: AppData):
         
         # Feature engineering (moved to utils)
         features = feature_engineering(permissions)
-<<<<<<< HEAD
         print(f"Received permissions: {permissions}")  # Log the permissions
-=======
->>>>>>> 086a4b800ad52088b855b61ab65fef6eb3b3cff0
         
         # Predict risk using the model (scikit-learn API)
         risk_score = model.predict_proba(features.reshape(1, -1))

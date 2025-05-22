@@ -17,12 +17,8 @@ DANGEROUS_PERMISSIONS = [
     "android.permission.READ_CALL_LOG",
     "android.permission.WRITE_CALL_LOG",
     "android.permission.READ_EXTERNAL_STORAGE",
-<<<<<<< HEAD
     "android.permission.WRITE_EXTERNAL_STORAGE",
     "android.permission.BLUETOOTH_CONNECT"
-=======
-    "android.permission.WRITE_EXTERNAL_STORAGE"
->>>>>>> 086a4b800ad52088b855b61ab65fef6eb3b3cff0
 ]
 
 def feature_engineering(permissions: List[str]) -> np.ndarray:
@@ -86,10 +82,5 @@ def calculate_static_risk(permissions: List[str]) -> float:
     # with a maximum threshold
     risk = min(1.0, dangerous_count / max(5, len(permissions) / 2))
     
-<<<<<<< HEAD
     return risk
 
-# Example usage
-=======
-    return risk
->>>>>>> 086a4b800ad52088b855b61ab65fef6eb3b3cff0
