@@ -17,7 +17,8 @@ DANGEROUS_PERMISSIONS = [
     "android.permission.READ_CALL_LOG",
     "android.permission.WRITE_CALL_LOG",
     "android.permission.READ_EXTERNAL_STORAGE",
-    "android.permission.WRITE_EXTERNAL_STORAGE"
+    "android.permission.WRITE_EXTERNAL_STORAGE",
+    "android.permission.BLUETOOTH_CONNECT"
 ]
 
 def feature_engineering(permissions: List[str]) -> np.ndarray:
