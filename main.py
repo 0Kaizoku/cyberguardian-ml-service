@@ -2,10 +2,9 @@ from fastapi import FastAPI, HTTPException
 import xgboost
 import numpy as np
 import joblib
-import json
 from pydantic import BaseModel
 from typing import List, Optional
-from utils import feature_engineering, check_virustotal_api
+from utils import feature_engineering, DANGEROUS_PERMISSIONS
 
 class AppData(BaseModel):
     package_name: str
@@ -19,7 +18,6 @@ class AppData(BaseModel):
 class RiskPrediction(BaseModel):
     risk_score: float
     risk_label: str
-    virustotal_status: Optional[str] = None
 
 app = FastAPI(
     title="CyberGuardian ML Service",
@@ -27,10 +25,12 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Load the pre-trained XGBoost model
-model = xgboost.Booster()
-# model.load_model("model.pkl")
-model, dangerous_permissions = joblib.load("model.pkl")
+# Load the pre-trained XGBoost model and dangerous permissions
+try:
+    # Correctly unpack the model and dangerous_permissions tuple
+    model, dangerous_permissions = joblib.load("model.pkl")
+except Exception as e:
+    raise RuntimeError(f"Failed to load model: {str(e)}")
 
 @app.get("/")
 async def root():
@@ -39,32 +39,43 @@ async def root():
 @app.post("/predict", response_model=RiskPrediction)
 async def predict(app_data: AppData):
     try:
-        # Extract features from the received data
+        # Log the raw payload
+        import json
+        print(f"Raw payload: {json.dumps(app_data.dict(), indent=2)}")
+
+        # Extract and validate permissions
         permissions = app_data.permissions
-        
-        # Feature engineering (moved to utils)
-        features = feature_engineering(permissions)
-        print(f"Received permissions: {permissions}")  # Log the permissions
-        
-        # Predict risk using the model (scikit-learn API)
-        risk_score = model.predict_proba(features.reshape(1, -1))
-        risk_score_value = float(risk_score[0][1])  # Probability of 'Threat' class
-        risk_label = "suspicious" if risk_score_value > 0.5 else "benign"
-        
-        # Optional: Check VirusTotal API if sha256 is provided
-        virustotal_status = None
-        if app_data.sha256:
-            virustotal_status = check_virustotal_api(app_data.sha256)
-        
+        print(f"Received permissions: {permissions}")
+
+        if not permissions:
+            raise HTTPException(status_code=400, detail="No permissions provided")
+
+        # Map permissions to dangerous permissions
+        mapped_permissions = [p for p in permissions if p in dangerous_permissions]
+        print(f"Mapped permissions: {mapped_permissions}")
+
+        # Create feature vector
+        features = feature_engineering(mapped_permissions)
+        print(f"Feature vector: {features}")
+        print(f"Feature vector size: {features.shape}")
+
+        # Ensure features are in correct shape (1, n_features)
+        features = np.array(features).reshape(1, -1)
+
+        # Predict risk using the model
+        risk_score = model.predict_proba(features)[0][1]  # Probability of 'Threat' class
+        risk_label = "suspicious" if risk_score > 0.5 else "benign"
+
         return {
-            "risk_score": risk_score_value,
-            "risk_label": risk_label,
-            "virustotal_status": virustotal_status
+            "risk_score": float(risk_score),
+            "risk_label": risk_label
         }
-    
+
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
-
+    
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
